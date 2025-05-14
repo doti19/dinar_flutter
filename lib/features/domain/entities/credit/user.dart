@@ -88,6 +88,16 @@ class UserEntity extends Equatable {
   }
 
   factory UserEntity.fromJson(Map<String, dynamic> json) {
+    DateTime? parseDate(String dateStr) {
+      try {
+        return DateTime.parse(dateStr);
+      } catch (e) {
+        print('Invalid date format: $dateStr ');
+        // return null;
+        rethrow;
+      }
+    }
+
     return UserEntity(
       id: json['_id'],
       status: UserStatus.parse(json['status'] ?? ""),
@@ -102,14 +112,17 @@ class UserEntity extends Equatable {
       dob: json['dateOfBirth'] ?? "",
       phone: json['phoneNumber']['number'] ?? "",
       banReason: json['banReason'] ?? "",
-      lastActiveAt: DateTime.parse(json['lastActiveAt'] ?? ""),
-      createdAt: DateTime.parse(json['createdAt'] ?? ""),
+      lastActiveAt: json['lastActiveAt'] != null
+          ? parseDate(json['lastActiveAt'] ?? "a")
+          : null,
+      createdAt:
+          json['createdAt'] != null ? parseDate(json['createdAt']) : null,
       // createdAt: DateTime.now(),
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.parse(json['updatedAt'])
-          : DateTime.now(),
+      updatedAt:
+          json['updatedAt'] != null ? parseDate(json['updatedAt']) : null,
       // updatedAt: DateTime.now(),
-      bannedUtil: DateTime.tryParse(json['banUntil'] ?? ""),
+      bannedUtil:
+          json['bannedUntil'] != null ? parseDate(json['banUntil']) : null,
     );
   }
 

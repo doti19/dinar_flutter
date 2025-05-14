@@ -1,3 +1,4 @@
+import 'package:dinar/features/presentation/modules/post_management/widgets/list_posts_approved.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../config/theme/app_color.dart';
@@ -30,7 +31,7 @@ class _PostManagementScreenState extends State<PostManagementScreen> {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: AppColors.white,
-            title: const Text('News management'),
+            title: const Text('My Posts'),
             leading: Padding(
               padding: const EdgeInsets.only(left: 10),
               child: IconButton(
@@ -77,6 +78,7 @@ class _PostManagementScreenState extends State<PostManagementScreen> {
           body: TabBarView(
             children: <Widget>[
               ListPostsPosted(),
+              // ListPostsApproved(),
               ListPostsPendding(),
               ListPostsReject(),
               ListPostsHided(),

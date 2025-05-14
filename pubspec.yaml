@@ -146,6 +146,8 @@ dependencies:
   syncfusion_flutter_charts: ^26.1.41+1
   fl_chart: ^0.68.0
   input_quantity: ^2.3.4
+  modal_bottom_sheet: ^3.0.0
+  flutter_sliding_up_panel: ^2.1.1
 
 dev_dependencies:
   flutter_test:

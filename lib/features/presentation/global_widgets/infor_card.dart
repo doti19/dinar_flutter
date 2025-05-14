@@ -77,7 +77,7 @@ class InforCard extends StatelessWidget {
                     ),
                     IconText(
                       icon: Assets.home,
-                      text: post.interestRate!.toFormattedMoney(),
+                      text: post.interestRate!.interest.toFormattedMoney(),
                       color: AppColors.grey500,
                     ),
                     const SizedBox(

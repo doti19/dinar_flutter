@@ -57,7 +57,11 @@ class _DescriptionCardState extends State<DescriptionCard>
             curve: Curves.fastOutSlowIn,
             child: Text(
               widget.description,
-              maxLines: isExpanded ? 100 : 3,
+              maxLines: widget.title.length > 50
+                  ? isExpanded
+                      ? 100
+                      : 3
+                  : null,
               overflow: TextOverflow.ellipsis,
               style: AppTextStyles.regular12,
             ),
@@ -65,46 +69,48 @@ class _DescriptionCardState extends State<DescriptionCard>
           const SizedBox(
             height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ZoomTapAnimation(
-                child: InkWell(
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      bottom: 2, // space between underline and text
-                    ),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: AppColors.grey500, // Text colour here
-                          width: 0.5, // Underline width
+          widget.title.length > 50
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ZoomTapAnimation(
+                      child: InkWell(
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                            bottom: 2, // space between underline and text
+                          ),
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: AppColors.grey500, // Text colour here
+                                width: 0.5, // Underline width
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            isExpanded ? 'Collapse' : 'see more',
+                            style: AppTextStyles.regular12.copyWith(
+                              color: AppColors.grey500,
+                              //decoration: TextDecoration.underline,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    child: Text(
-                      isExpanded ? 'Collapse' : 'see more',
-                      style: AppTextStyles.regular12.copyWith(
-                        color: AppColors.grey500,
-                        //decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
+                        onTap: () {
+                          setState(() {
+                            isExpanded = !isExpanded;
+                          });
 
-                    if (isExpanded) {
-                      _controller.forward();
-                    } else {
-                      _controller.reverse();
-                    }
-                  },
-                ),
-              )
-            ],
-          ),
+                          if (isExpanded) {
+                            _controller.forward();
+                          } else {
+                            _controller.reverse();
+                          }
+                        },
+                      ),
+                    )
+                  ],
+                )
+              : SizedBox.shrink(),
         ],
       ),
     );

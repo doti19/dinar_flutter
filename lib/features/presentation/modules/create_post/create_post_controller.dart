@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dinar/features/domain/entities/credit/post.dart';
+import 'package:dinar/features/domain/enums/interest_unit_types.dart';
 import 'package:dinar/features/domain/enums/post_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -77,12 +78,32 @@ class CreatePostController extends GetxController {
         loanReason: borrowingLoanReason,
         loanAmount: lendingLoanAmount,
         maxLoanAmount: lendingMaxLoanAmount,
-        interestRate: lendingInterestRate,
-        maxInterestRate: lendingMaxInterestRate,
+        interestRate: lendingInterestRate != null
+            ? InterestRate(
+                interest: lendingInterestRate!,
+                unit: InterestUnitTypes.parse(
+                    interestRateUnit.value.toLowerCase()))
+            : null,
+        maxInterestRate: lendingMaxInterestRate != null
+            ? InterestRate(
+                interest: lendingMaxInterestRate!,
+                unit: InterestUnitTypes.parse(
+                    interestRateUnit.value.toLowerCase()))
+            : null,
         tenureMonths: lendingTenureMonths,
         maxTenureMonths: lendingMaxTenureMonths,
-        overdueInterestRate: lendingOverdueInterestRate,
-        maxOverdueInterestRate: lendingMaxOverdueInterestRate,
+        overdueInterestRate: lendingOverdueInterestRate != null
+            ? InterestRate(
+                interest: lendingOverdueInterestRate!,
+                unit: InterestUnitTypes.parse(
+                    overdueInterestRateUnit.value.toLowerCase()))
+            : null,
+        maxOverdueInterestRate: lendingMaxOverdueInterestRate != null
+            ? InterestRate(
+                interest: lendingMaxOverdueInterestRate!,
+                unit: InterestUnitTypes.parse(
+                    overdueInterestRateUnit.value.toLowerCase()))
+            : null,
         postExpiresAfter: postExpiresAfter ?? 3,
       );
     } else {
@@ -113,9 +134,19 @@ class CreatePostController extends GetxController {
   }
 
   List<String> timeTypes = ["Month", "Year"];
-  RxString timeValue = 'Month'.obs;
-  void setTimeValue(String? value) {
-    timeValue.value = value!;
+  RxString interestRateUnit = 'Month'.obs;
+  void setInterestRateUnit(String? value) {
+    interestRateUnit.value = value!;
+  }
+
+  RxString overdueInterestRateUnit = 'Month'.obs;
+  void setOverdueInterestRateUnit(String? value) {
+    overdueInterestRateUnit.value = value!;
+  }
+
+  RxString periodUnit = 'Month'.obs;
+  void setPeriodUnit(String? value) {
+    periodUnit.value = value!;
   }
 
   // choose is lending

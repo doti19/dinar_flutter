@@ -2,7 +2,7 @@ enum PostStatusManagement {
   pending,
   approved,
   rejected,
-  exprired,
+  expired,
   hided;
 
   static PostStatusManagement parse(String value) {
@@ -23,8 +23,8 @@ enum PostStatusManagement {
         return "rejected";
       case PostStatusManagement.hided:
         return "hided";
-      case PostStatusManagement.exprired:
-        return "exprired";
+      case PostStatusManagement.expired:
+        return "expired";
     }
   }
 }

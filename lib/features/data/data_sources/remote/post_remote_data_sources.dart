@@ -58,10 +58,11 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
     int pageQuery = page ?? 1;
     QueryBuilder queryBuilder = QueryBuilder();
     queryBuilder.addPage(pageQuery);
-    queryBuilder.addQuery('status', Operation.equals, '\'$status\'');
+    queryBuilder.addQuery('status', Operation.equals, '$status');
     queryBuilder.addOrderBy('updatedAt', OrderBy.desc);
 
-    String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
+    String url = '$apiUrl$kGetPostEndpoint/my/${queryBuilder.build()}';
+    print('many men');
 
     return await DatabaseHelper().getPosts(url, client);
   }
@@ -73,9 +74,11 @@ class PostRemoteDataSrcImpl implements PostRemoteDataSrc {
 
     QueryBuilder queryBuilder = QueryBuilder();
     queryBuilder.addPage(pageQuery);
+    queryBuilder.addQuery('status', Operation.equals, 'hidden');
+
     queryBuilder.addOrderBy('updated_at', OrderBy.desc);
 
-    String url = '$apiUrl$kGetPostEndpoint${queryBuilder.build()}';
+    String url = '$apiUrl$kGetPostEndpoint/my/${queryBuilder.build()}';
 
     return await DatabaseHelper().getPosts(url, client);
   }

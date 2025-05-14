@@ -1,3 +1,4 @@
+import 'package:dinar/features/presentation/modules/bottom_bar/bottom_bar_controller.dart';
 import 'package:get/get.dart';
 import 'package:dinar/config/routes/app_routes.dart';
 import 'package:dinar/core/utils/check_time_date.dart';
@@ -13,9 +14,17 @@ class HomeController extends GetxController {
   RxInt unreadMessCount = 1.obs;
   RxInt unreadNotiCount = 1.obs;
 
+  final BottomBarController _bottomBarController =
+      Get.put(BottomBarController());
+
   // appbar
   Greeting getGreeting() {
     return CheckTimeOfDate.getGreeting();
+  }
+
+  void goToPostScreen() {
+    _bottomBarController.changeTabIndex(1);
+    // changeIndexTab(1);
   }
 
   // loan limit

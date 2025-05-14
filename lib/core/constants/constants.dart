@@ -1,6 +1,6 @@
 // const ipConfig = "192.168.1.3:3000";
-const ipConfig = "10.0.2.2:3000";
-// const ipConfig = "93.127.186.109:3000";
+// const ipConfig = "10.0.2.2:3000";
+const ipConfig = "93.127.186.109:3000";
 const bool isProduction = false;
 // const String apiDevUrl = "http://$ipConfig:8000/api/v1";
 const String apiDevBaseUrl = "http://$ipConfig";
@@ -24,6 +24,7 @@ const String kVerifyPhoneOTP = '/verifyPhoneOTP';
 
 const String kGetPostEndpoint = '/posts';
 const String kCreatePostEndpoint = '/posts';
+const String kGetBidEndpoint = '/bids';
 const String kGetMembershipPackageEndpoint = '/membership-package';
 const String kGetTransactionEndpoint = '/membership-package/transactions';
 const String kCreateOrderEndpoint = '/membership-package/check-out';

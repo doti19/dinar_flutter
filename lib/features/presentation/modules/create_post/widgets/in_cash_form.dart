@@ -80,8 +80,8 @@ class InCashForm extends StatelessWidget {
                     print(e);
                   }
                 },
-                timeValue: controller.timeValue.value,
-                onChangeTimeValue: controller.setTimeValue,
+                timeValue: controller.interestRateUnit.value,
+                onChangeTimeValue: controller.setInterestRateUnit,
                 validator: (value) => (value!.trim().isNotEmpty)
                     ? null
                     : 'Interest cannot be empty'.tr,
@@ -107,8 +107,8 @@ class InCashForm extends StatelessWidget {
                     print(e);
                   }
                 },
-                timeValue: controller.timeValue.value,
-                onChangeTimeValue: controller.setTimeValue,
+                timeValue: controller.overdueInterestRateUnit.value,
+                onChangeTimeValue: controller.setOverdueInterestRateUnit,
                 validator: (value) => (value!.trim().isNotEmpty)
                     ? null
                     : 'Interest cannot be empty'.tr,
@@ -133,8 +133,8 @@ class InCashForm extends StatelessWidget {
                     print(e);
                   }
                 },
-                timeValue: controller.timeValue.value,
-                onChangeTimeValue: controller.setTimeValue,
+                timeValue: controller.periodUnit.value,
+                onChangeTimeValue: controller.setPeriodUnit,
                 validator: (value) => (value!.trim().isNotEmpty)
                     ? null
                     : 'The term cannot be empty'.tr,

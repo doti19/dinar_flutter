@@ -13,11 +13,13 @@ class CarouselAd extends StatefulWidget {
       {super.key,
       required this.imgList,
       required this.aspectRatio,
-      required this.indicatorSize});
+      required this.indicatorSize,
+      required this.isLocal});
 
   final List<String> imgList;
   final double aspectRatio;
   final double indicatorSize;
+  final bool isLocal;
 
   @override
   State<CarouselAd> createState() => _CarouselAdState();
@@ -30,6 +32,7 @@ class _CarouselAdState extends State<CarouselAd> {
 
   @override
   Widget build(BuildContext context) {
+    // print('carousel ${widget.imgList}');
     return SizedBox(
         child: Stack(
       children: [
@@ -42,7 +45,9 @@ class _CarouselAdState extends State<CarouselAd> {
                 .map((item) => ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       child: CachedNetworkImage(
-                        imageUrl: '${apiDevBaseUrl}/images/$item',
+                        imageUrl: widget.isLocal
+                            ? '${apiDevBaseUrl}/images/$item'
+                            : '$item',
                         fit: BoxFit.cover,
                         width: 100.wp,
                         errorWidget: (context, _, __) {

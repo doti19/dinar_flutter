@@ -17,8 +17,8 @@ class PostScreen extends StatelessWidget {
       child: Scaffold(
         appBar: MyTabAppbar(
           title: "Bids",
-          tabTitle1: "Borrow",
-          tabTitle2: "Lend",
+          tabTitle1: "In Kind",
+          tabTitle2: "In Cash",
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 10),

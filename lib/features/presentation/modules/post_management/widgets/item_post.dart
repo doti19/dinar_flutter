@@ -42,7 +42,7 @@ class _ItemPostState extends State<ItemPost> {
         return AppColors.red800;
       case PostStatusManagement.hided:
         return AppColors.grey700;
-      case PostStatusManagement.exprired:
+      case PostStatusManagement.expired:
         return AppColors.yellow800;
     }
   }
@@ -57,7 +57,7 @@ class _ItemPostState extends State<ItemPost> {
         return AppColors.red100;
       case PostStatusManagement.hided:
         return AppColors.grey100;
-      case PostStatusManagement.exprired:
+      case PostStatusManagement.expired:
         return AppColors.yellow100;
     }
   }
@@ -133,6 +133,27 @@ class _ItemPostState extends State<ItemPost> {
                               overflow: TextOverflow.ellipsis,
                               style: AppTextStyles.bold14.copyWith(
                                 color: AppColors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Text(
+                              "Post Status: ",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.regular12.copyWith(
+                                color: AppColors.grey500,
+                              ),
+                            ),
+                            Text(
+                              // post.title!,
+                              widget.post.status!.toString(),
+                              // maxLines: 3,
+                              style: AppTextStyles.bold12.copyWith(
+                                color: AppColors.grey500,
                               ),
                             ),
                           ],

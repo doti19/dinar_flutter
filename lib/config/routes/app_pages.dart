@@ -1,5 +1,7 @@
 import 'package:dinar/features/presentation/modules/bank/screens/add_bank_card_screen.dart';
 import 'package:dinar/features/presentation/modules/bank/screens/bank_screen.dart';
+import 'package:dinar/features/presentation/modules/bid_management/post_management_binding.dart';
+import 'package:dinar/features/presentation/modules/bid_management/screens/bid_management_screen.dart';
 import 'package:dinar/features/presentation/modules/create_request/screens/change_user_screen.dart';
 import '../../features/presentation/modules/bank/bank_binding.dart';
 import '../../features/presentation/modules/bank/screens/bank_list_screen.dart';
@@ -86,6 +88,12 @@ abstract class AppPages {
       page: () => const PostManagementScreen(),
       binding: PostManagementBinding(),
     ),
+    GetPage(
+      name: AppRoutes.bidManagement,
+      page: () => BidManagementScreen(),
+      binding: BidManagementBinding(),
+    ),
+
     GetPage(
       name: AppRoutes.createPost,
       page: () => CreatePostScreen(),

@@ -109,8 +109,8 @@ class InKindForm extends StatelessWidget {
                     print(e);
                   }
                 },
-                timeValue: controller.timeValue.value,
-                onChangeTimeValue: controller.setTimeValue,
+                timeValue: controller.interestRateUnit.value,
+                onChangeTimeValue: controller.setInterestRateUnit,
                 validator: (value) => (value!.trim().isNotEmpty)
                     ? null
                     : 'Loan Tenure cannot be empty'.tr,

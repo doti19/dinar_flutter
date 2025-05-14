@@ -1,4 +1,5 @@
 import 'package:dinar/features/domain/entities/credit/user.dart';
+import 'package:dinar/features/domain/enums/interest_unit_types.dart';
 import 'package:dinar/features/domain/enums/post_type.dart';
 import 'package:equatable/equatable.dart';
 import '../../enums/loan_reason_types.dart';
@@ -16,17 +17,19 @@ class PostEntity extends Equatable {
   final List<String>? images;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final double? interestRate;
+  final DateTime? postExpiresAt;
+  final InterestRate? interestRate;
   final double? loanAmount;
   final int? tenureMonths;
-  final double? overdueInterestRate;
-  final double? maxInterestRate;
+  final InterestRate? overdueInterestRate;
+  final InterestRate? maxInterestRate;
   final double? maxLoanAmount;
   final int? maxTenureMonths;
-  final double? maxOverdueInterestRate;
+  final InterestRate? maxOverdueInterestRate;
   final String? rejectedReason;
   final DateTime? deletedAt;
   final int? postExpiresAfter;
+  final List<String>? bids;
 
   const PostEntity({
     this.id,
@@ -40,6 +43,7 @@ class PostEntity extends Equatable {
     this.images,
     this.createdAt,
     this.updatedAt,
+    this.postExpiresAt,
     this.interestRate,
     this.loanAmount,
     this.tenureMonths,
@@ -51,6 +55,7 @@ class PostEntity extends Equatable {
     this.rejectedReason,
     this.deletedAt,
     this.postExpiresAfter,
+    this.bids,
   });
 
   @override
@@ -66,6 +71,7 @@ class PostEntity extends Equatable {
         images,
         createdAt,
         updatedAt,
+        postExpiresAt,
         interestRate,
         loanAmount,
         tenureMonths,
@@ -77,6 +83,7 @@ class PostEntity extends Equatable {
         rejectedReason,
         deletedAt,
         postExpiresAfter,
+        bids,
       ];
 
   PostEntity copyWith({
@@ -91,17 +98,19 @@ class PostEntity extends Equatable {
     List<String>? images,
     DateTime? createdAt,
     DateTime? updatedAt,
-    double? interestRate,
+    DateTime? postExpiresAt,
+    InterestRate? interestRate,
     double? loanAmount,
     int? tenureMonths,
-    double? overdueInterestRate,
-    double? maxInterestRate,
+    InterestRate? overdueInterestRate,
+    InterestRate? maxInterestRate,
     double? maxLoanAmount,
     int? maxTenureMonths,
-    double? maxOverdueInterestRate,
+    InterestRate? maxOverdueInterestRate,
     String? rejectedReason,
     DateTime? deletedAt,
     int? postExpiresAfter,
+    List<String>? bids,
   }) {
     return PostEntity(
       id: id ?? this.id,
@@ -115,6 +124,7 @@ class PostEntity extends Equatable {
       images: images ?? this.images,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      postExpiresAt: postExpiresAt ?? this.postExpiresAt,
       interestRate: interestRate ?? this.interestRate,
       loanAmount: loanAmount ?? this.loanAmount,
       tenureMonths: tenureMonths ?? this.tenureMonths,
@@ -127,46 +137,96 @@ class PostEntity extends Equatable {
       rejectedReason: rejectedReason ?? this.rejectedReason,
       deletedAt: deletedAt ?? this.deletedAt,
       postExpiresAfter: postExpiresAfter ?? this.postExpiresAfter,
+      bids: bids ?? this.bids,
     );
   }
 
   // from json
   factory PostEntity.fromJson(Map<String, dynamic> json) {
     return PostEntity(
-      id: json['_id'] as String?,
-      user: json['user'] != null ? UserEntity.fromJson(json['user']) : null,
-      type: json['type'] != null ? PostTypes.parse(json['type']) : null,
-      loanReasonType: json['loanReasonType'] != null
-          ? LoanReasonTypes.values.firstWhere(
-              (element) => element.toString() == json['loanReasonType'])
-          : null,
-      loanReason: json['loanReasonDescription'] as String?,
-      status: json['status'] != null
-          ? PostStatus.values
-              .firstWhere((element) => element.toString() == json['status'])
-          : null,
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      images: json['images'] != null ? List<String>.from(json['images']) : null,
-      createdAt: json['createdAt'] != null
-          ? DateTime.parse(json['createdAt'] as String)
-          : null,
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.parse(json['updatedAt'] as String)
-          : null,
-      interestRate: json['interestRate'] as double?,
-      loanAmount: json['amount'] as double?,
-      tenureMonths: json['tenureMonths'] as int?,
-      overdueInterestRate: json['overdueInterestRate'] as double?,
-      maxInterestRate: json['maxInterestRate'] as double?,
-      maxLoanAmount: json['maxAmount'] as double?,
-      maxTenureMonths: json['maxTenureMonths'] as int?,
-      maxOverdueInterestRate: json['maxOverdueInterestRate'] as double?,
-      rejectedReason: json['rejectionReason'] as String?,
-      deletedAt: json['deletedAt'] != null
-          ? DateTime.parse(json['post_deleted_at'] as String)
-          : null,
-      postExpiresAfter: json['postExpiresAfter'] as int?,
+        id: json['_id'] as String?,
+        user: json['user'] != null ? UserEntity.fromJson(json['user']) : null,
+        type: json['type'] != null ? PostTypes.parse(json['type']) : null,
+        loanReasonType: json['loanReasonType'] != null
+            ? LoanReasonTypes.values.firstWhere(
+                (element) => element.toString() == json['loanReasonType'])
+            : null,
+        loanReason: json['loanReasonDescription'] as String?,
+        status: json['status'] != null
+            ? PostStatus.values
+                .firstWhere((element) => element.toString() == json['status'])
+            : null,
+        title: json['title'] as String?,
+        description: json['description'] as String?,
+        images:
+            json['images'] != null ? List<String>.from(json['images']) : null,
+        createdAt: json['createdAt'] != null
+            ? DateTime.parse(json['createdAt'] as String)
+            : null,
+        updatedAt: json['updatedAt'] != null
+            ? DateTime.parse(json['updatedAt'] as String)
+            : null,
+        postExpiresAt: json['postExpiresAt'] != null
+            ? DateTime.parse(json['postExpiresAt'] as String)
+            : null,
+        interestRate: json['interestRate'] != null
+            ? InterestRate.fromJson(json['interestRate'])
+            : null,
+        loanAmount: json['amount'] != null
+            ? double.parse((json['amount'] as Map).values.first)
+            : null,
+        tenureMonths: json['tenureMonths'] as int?,
+        overdueInterestRate: json['overdueInterestRate'] != null
+            ? InterestRate.fromJson(json['overdueInterestRate'])
+            : null,
+        maxInterestRate: json['maxInterestRate'] != null
+            ? InterestRate.fromJson(json['maxInterestRate'])
+            : null,
+        maxLoanAmount: json['maxAmount'] as double?,
+        maxTenureMonths: json['maxTenureMonths'] as int?,
+        maxOverdueInterestRate: json['maxOverdueInterestRate'] != null
+            ? InterestRate.fromJson(json['maxOverdueInterestRate'])
+            : null,
+        rejectedReason: json['rejectionReason'] as String?,
+        deletedAt: json['deletedAt'] != null
+            ? DateTime.parse(json['post_deleted_at'] as String)
+            : null,
+        postExpiresAfter: json['postExpiresAfter'] as int?,
+        bids: json['bids'] != null ? json['bids'].cast<String>() : []);
+  }
+}
+
+class InterestRate extends Equatable {
+  const InterestRate({required this.interest, required this.unit});
+  final double interest;
+  final InterestUnitTypes unit;
+
+  InterestRate copyWith({
+    double? interest,
+    InterestUnitTypes? unit,
+  }) {
+    return InterestRate(
+      interest: interest ?? this.interest,
+      unit: unit ?? this.unit,
     );
   }
+
+  static InterestRate fromJson(Map<String, dynamic> json) {
+    return InterestRate(
+      interest: double.parse((json['interest'] as Map).values.first),
+      unit: InterestUnitTypes.values
+          .firstWhere((element) => element.toString() == json['unit']),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'interest': interest,
+      'unit': unit.toString(),
+    };
+  }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [interest, unit];
 }

@@ -405,4 +405,62 @@ Future<void> initializeDependencies() async {
       sl<BankRepository>(),
     ),
   );
+
+  // bid =====================================================
+  sl.registerSingleton<BidRemoteDataSrc>(
+    BidRemoteDataSrcImpl(
+      sl<Dio>(),
+    ),
+  );
+  sl.registerSingleton<BidRepository>(
+    BidRepositoryImpl(
+      sl<BidRemoteDataSrc>(),
+    ),
+  );
+  sl.registerSingleton<ApproveBidUseCase>(
+    ApproveBidUseCase(
+      sl<BidRepository>(),
+    ),
+  );
+  sl.registerSingleton<DeclineBidUseCase>(
+    DeclineBidUseCase(
+      sl<BidRepository>(),
+    ),
+  );
+  sl.registerSingleton<AcceptBidUseCase>(
+    AcceptBidUseCase(
+      sl<BidRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<CreateBidUseCase>(
+    CreateBidUseCase(
+      sl<BidRepository>(),
+    ),
+  );
+  sl.registerSingleton<DeleteBidUseCase>(
+    DeleteBidUseCase(
+      sl<BidRepository>(),
+    ),
+  );
+  sl.registerSingleton<GetMyBidsUseCase>(
+    GetMyBidsUseCase(
+      sl<BidRepository>(),
+    ),
+  );
+  sl.registerSingleton<GetBidsByPostUseCase>(
+    GetBidsByPostUseCase(
+      sl<BidRepository>(),
+    ),
+  );
+  sl.registerSingleton<RejectBidUseCase>(
+    RejectBidUseCase(
+      sl<BidRepository>(),
+    ),
+  );
+  sl.registerSingleton<UpdateBidUseCase>(
+    UpdateBidUseCase(
+      sl<BidRepository>(),
+    ),
+  );
 }

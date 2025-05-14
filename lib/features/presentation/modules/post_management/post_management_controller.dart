@@ -14,9 +14,11 @@ class PostManagementController extends GetxController {
   RxList<PostEntity> approvedPosts = <PostEntity>[].obs;
   RxList<PostEntity> rejectedPosts = <PostEntity>[].obs;
   RxList<PostEntity> hidedPosts = <PostEntity>[].obs;
+  RxList<PostEntity> expiredPosts = <PostEntity>[].obs;
 
   List<String> typePosts = [
-    "Posted",
+    "Approved",
+    // "approved",
     "Pending",
     "Denied",
     "Hidden",

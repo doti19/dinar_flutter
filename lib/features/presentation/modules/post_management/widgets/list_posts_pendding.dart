@@ -26,7 +26,7 @@ class ListPostsPendding extends StatelessWidget {
       post: post,
       funcs: const [
         "Edit",
-        "Delete news",
+        "Delete Post",
       ],
       iconFuncs: const [
         Icons.edit,

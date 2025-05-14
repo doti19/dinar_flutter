@@ -70,6 +70,9 @@ abstract class AppRoutes {
   // post management
   static const postManagement = '/postManagement';
 
+  // bid management
+  static const bidManagement = '/bidManagement';
+
   // user profile
   static const userProfile = '/userProfile/:id';
   static String getUserProfileRoute(String id) {

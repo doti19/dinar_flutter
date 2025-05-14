@@ -21,31 +21,26 @@ class InfoCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InfoRow(
-            title: "Amount of money: ",
-            value: post.type == PostTypes.inKind
-                ? "some data for the time being"
-                // ? "${post.loanAmount!.toInt().formatNumberWithCommas} ETB"
-                : "${post.loanAmount!.toInt().formatNumberWithCommas} - ${post.maxLoanAmount!.toInt().formatNumberWithCommas} Birr",
-          ),
+          if (post.type == PostTypes.inCash)
+            InfoRow(
+              title: "Amount of money: ",
+              value:
+                  // ? "${post.loanAmount!.toInt().formatNumberWithCommas} ETB"
+                  "${post.loanAmount!.toInt().formatNumberWithCommas} Birr ${post.maxLoanAmount != null ? '- ${post.maxLoanAmount!.toInt().formatNumberWithCommas} Birr' : ''}",
+            ),
           const SizedBox(height: 5),
           InfoRow(
-            title: "Period: ",
-            value: post.type == PostTypes.inKind
-                ? "some data for the time being"
-
-                // ? "${post.tenureMonths!} month"
-                : "${post.tenureMonths!} - ${post.maxTenureMonths!} month",
+            title: "Tenure Months: ",
+            value:
+                "${post.tenureMonths!} month ${post.maxTenureMonths != null ? '- ${post.maxTenureMonths!} month' : ''}",
           ),
           const SizedBox(height: 5),
-          InfoRow(
-            title: "Interest rate: ",
-            value: post.type == PostTypes.inKind
-                ? "some data for the time being"
-
-                // ? "${post.interestRate!}% / month"
-                : "${post.interestRate!} - ${post.maxInterestRate!}% / month",
-          ),
+          if (post.type == PostTypes.inCash)
+            InfoRow(
+              title: "Interest rate: ",
+              value:
+                  "${post.interestRate!.interest}% / ${post.interestRate!.unit.toString()} ${post.maxInterestRate != null ? '- ${post.maxInterestRate!.interest}% / ${post.maxInterestRate!.unit.toString()}' : ''} ",
+            ),
           const SizedBox(height: 5),
           if (post.type == PostTypes.inKind)
             InfoRow(
@@ -57,7 +52,7 @@ class InfoCard extends StatelessWidget {
             InfoRow(
               title: "overdue: ",
               value:
-                  "${post.overdueInterestRate!} - ${post.maxOverdueInterestRate!}% / month",
+                  "${post.overdueInterestRate!.interest}% / ${post.overdueInterestRate!.unit.toString()} ${post.maxOverdueInterestRate != null ? '- ${post.maxOverdueInterestRate!.interest}% / month' : ''}",
             ),
         ],
       ),

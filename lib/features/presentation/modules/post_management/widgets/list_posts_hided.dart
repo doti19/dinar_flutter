@@ -27,9 +27,9 @@ class ListPostsHided extends StatelessWidget {
       status: "Message hidden",
       post: post,
       funcs: const [
-        "Show news",
+        "Show Post",
         "Edit",
-        "Delete news",
+        "Delete Post",
       ],
       iconFuncs: const [
         Icons.remove_red_eye_outlined,

@@ -19,6 +19,7 @@ class PostModel extends PostEntity {
     super.images,
     super.createdAt,
     super.updatedAt,
+    super.postExpiresAt,
     super.interestRate,
     super.loanAmount,
     super.tenureMonths,
@@ -30,12 +31,23 @@ class PostModel extends PostEntity {
     super.rejectedReason,
     super.deletedAt,
     super.postExpiresAfter,
+    super.bids,
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     // print('zxcv ${(json['interestRate'] as Map).values.first}');
+    DateTime? parseDate(String dateStr) {
+      try {
+        return DateTime.parse(dateStr);
+      } catch (e) {
+        print('Invalid date format: $dateStr');
+        // return null;
+        rethrow;
+      }
+    }
+
     return PostModel(
-      id: json['id'],
+      id: json['_id'],
       user: json['user'] != null ? UserEntity.fromJson(json['user']) : null,
       type: json['type'] != null ? PostTypes.parse(json['type']) : null,
       loanReasonType: json['loanReasonType'] != null
@@ -46,10 +58,13 @@ class PostModel extends PostEntity {
       title: json['title'],
       description: json['description'],
       images: List<String>.from(json['images'] ?? []),
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
+      createdAt: parseDate(json['createdAt']),
+      updatedAt: parseDate(json['updatedAt']),
+      postExpiresAt: json['postExpiresAt'] != null
+          ? parseDate(json['postExpiresAt'])
+          : null,
       interestRate: json['interestRate'] != null
-          ? double.parse((json['interestRate'] as Map).values.first)
+          ? InterestRate.fromJson(json['interestRate'])
           : null,
       // interestRate: 0.0,
       loanAmount: json['amount'] != null
@@ -60,11 +75,11 @@ class PostModel extends PostEntity {
           json['tenureMonths'] != null ? json['tenureMonths'] as int : null,
       // tenureMonths: 0,
       overdueInterestRate: json['overdueInterestRate'] != null
-          ? double.parse((json['overdueInterestRate'] as Map).values.first)
+          ? InterestRate.fromJson(json['overdueInterestRate'])
           : null,
       // overdueInterestRate: 0.0,
       maxInterestRate: json['maxInterestRate'] != null
-          ? double.parse((json['maxInterestRate'] as Map).values.first)
+          ? InterestRate.fromJson(json['maxInterestRate'])
           : null,
       // maxInterestRate: 0.0,
       maxLoanAmount: json['maxAmount'] != null
@@ -74,35 +89,41 @@ class PostModel extends PostEntity {
       maxTenureMonths: json['maxTenureMonths'],
       // maxTenureMonths: 0,
       maxOverdueInterestRate: json['maxOverdueInterestRate'] != null
-          ? double.parse((json['maxOverdueInterestRate'] as Map).values.first)
+          ? InterestRate.fromJson(json['maxOverdueInterestRate'])
           : null,
       // maxOverdueInterestRate: 0.0,
       rejectedReason: json['rejectionReason'],
-      deletedAt: json['deletedAt'],
+      deletedAt:
+          json['deletedAt'] != null ? parseDate(json['deletedAt']) : null,
       postExpiresAfter: json['postExpiresAfter'],
+      bids: json['bids'] != null ? json['bids'].cast<String>() : [],
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
+    final data = {
       'type': type.toString(),
-      'loanReasonType':
-          loanReasonType != null ? loanReasonType.toString() : null,
+      'loanReasonType': loanReasonType?.toString(),
       'loanReasonDescription': loanReason,
       'title': title,
       'description': description,
       'images': images,
-      'interestRate': interestRate,
+      'interestRate': interestRate?.toMap(),
       'amount': loanAmount,
       'tenureMonths': tenureMonths,
       // 'overdueInterestRate': overdueInterestRate ?? 0.1,
-      'overdueInterestRate': overdueInterestRate,
-      'maxInterestRate': maxInterestRate,
+      'overdueInterestRate': overdueInterestRate?.toMap(),
+      'maxInterestRate': maxInterestRate?.toMap(),
       'maxAmount': maxLoanAmount,
       'maxTenureMonths': maxTenureMonths,
-      'maxOverdueInterestRate': maxOverdueInterestRate,
+      'maxOverdueInterestRate': maxOverdueInterestRate?.toMap(),
       'postExpiresAfter': postExpiresAfter ?? 3,
+      'bids': bids,
     };
+
+    //remove null values
+    data.removeWhere((key, value) => value == null);
+    return data;
   }
 
   factory PostModel.fromEntity(PostEntity entity) {
@@ -118,6 +139,7 @@ class PostModel extends PostEntity {
       images: entity.images,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+      postExpiresAt: entity.postExpiresAt,
       interestRate: entity.interestRate,
       loanAmount: entity.loanAmount,
       tenureMonths: entity.tenureMonths,
@@ -129,6 +151,7 @@ class PostModel extends PostEntity {
       rejectedReason: entity.rejectedReason,
       deletedAt: entity.deletedAt,
       postExpiresAfter: entity.postExpiresAfter,
+      bids: entity.bids,
     );
   }
 }

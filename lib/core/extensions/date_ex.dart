@@ -68,6 +68,30 @@ extension DateTimeX on DateTime {
     }
   }
 
+  String inSomeTime() {
+    Duration difference = this.difference(DateTime.now());
+
+    if (difference.inDays >= 365) {
+      int years = (difference.inDays / 365).floor();
+      return 'in ${years.toString()} ${'year${years > 1 ? 's' : ''}'.tr}';
+    } else if (difference.inDays >= 30) {
+      int months = (difference.inDays / 30).floor();
+      return 'in ${months.toString()} ${'month${months > 1 ? 's' : ''}'.tr}';
+    } else if (difference.inDays >= 1) {
+      if (difference.inDays == 1) {
+        return 'in 1 day'.tr;
+      } else {
+        return 'in ${difference.inDays.toString()} ${'day${difference.inDays > 1 ? 's' : ''}'.tr}';
+      }
+    } else if (difference.inHours >= 1) {
+      return 'in ${difference.inHours.toString()} ${'hour${difference.inHours > 1 ? 's' : ''}'.tr}';
+    } else if (difference.inMinutes >= 1) {
+      return 'in ${difference.inMinutes.toString()} ${'minute${difference.inMinutes > 1 ? 's' : ''}'.tr}';
+    } else {
+      return 'in a few moments'.tr;
+    }
+  }
+
   String getTimeAgoVi() {
     Duration difference = DateTime.now().difference(this);
 

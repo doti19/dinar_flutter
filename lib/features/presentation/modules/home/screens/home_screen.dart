@@ -54,12 +54,16 @@ class HomeScreen extends StatelessWidget {
                   BorderImageButton(
                     title: "Borrow now",
                     image: Assets.borrow,
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(AppRoutes.createPost);
+                    },
                   ),
                   BorderImageButton(
                     title: "Lend now",
                     image: Assets.creditor,
-                    onTap: () {},
+                    onTap: () {
+                      controller.goToPostScreen();
+                    },
                   ),
                 ],
               ),
@@ -70,6 +74,7 @@ class HomeScreen extends StatelessWidget {
                 imgList: controller.imgList,
                 aspectRatio: 2.59,
                 indicatorSize: 6,
+                isLocal: false,
               ),
 
               // text tin tuc

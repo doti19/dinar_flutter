@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dinar/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dinar/core/extensions/textstyle_ex.dart';
@@ -58,7 +59,7 @@ class UserCard extends StatelessWidget {
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
                     child: CachedNetworkImage(
-                      imageUrl: avatar!,
+                      imageUrl: '${apiDevBaseUrl}/images/${avatar!}',
                       fit: BoxFit.cover,
                       width: 50,
                       height: 50,

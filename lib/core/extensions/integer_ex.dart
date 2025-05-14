@@ -50,7 +50,7 @@ extension FormatMoneyExtension on int {
       for (int i = strNumber.length - 1; i >= 0; i--) {
         result = strNumber[i] + result;
         if ((strNumber.length - i) % 3 == 0 && i > 0) {
-          result = '.$result';
+          result = ',$result';
         }
       }
       return result;

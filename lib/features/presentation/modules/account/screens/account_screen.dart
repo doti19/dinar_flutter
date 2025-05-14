@@ -19,6 +19,7 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.servicePack = 1;
+
     return Scaffold(
       appBar: MyAppbar(
         title: "Account",
@@ -76,7 +77,7 @@ class AccountScreen extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(50)),
                         child: CachedNetworkImage(
                           imageUrl:
-                              '${apiDevBaseUrl}/images/${controller.me.value!.avatar!}',
+                              '${apiDevBaseUrl}/images/${controller.me.value!.avatar}',
                           fit: BoxFit.cover,
                           width: 36,
                           height: 36,
@@ -179,7 +180,7 @@ class AccountScreen extends StatelessWidget {
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
                 title: Text(
-                  'Manage Bids',
+                  'Manage Posts',
                   style: AppTextStyles.medium16,
                 ),
                 onTap: () {
@@ -198,6 +199,29 @@ class AccountScreen extends StatelessWidget {
                   size: 18,
                 ),
               ),
+              // ListTile(
+              //   contentPadding:
+              //       const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+              //   title: Text(
+              //     'Manage Bids',
+              //     style: AppTextStyles.medium16,
+              //   ),
+              //   onTap: () {
+              //     Get.toNamed(AppRoutes.bidManagement);
+              //   },
+              //   leading: Padding(
+              //     padding: const EdgeInsets.symmetric(horizontal: 5),
+              //     child: Image.asset(
+              //       Assets.money,
+              //       height: 25,
+              //       color: AppColors.black,
+              //     ),
+              //   ),
+              //   trailing: const Icon(
+              //     Icons.arrow_forward_ios_rounded,
+              //     size: 18,
+              //   ),
+              // ),
               ListTile(
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
